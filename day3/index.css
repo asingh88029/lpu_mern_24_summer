@@ -1,0 +1,22 @@
+.container > div{
+    width: 100px;
+    height: 100px;
+    background-color: yellow;
+    border: 2px solid red;
+}
+
+.container > div > p {
+   color: red; 
+}
+
+.container2 + div {
+    background-color: green;
+}
+
+#anch :visited {
+    color: red;
+}
+
+.card{
+    background-color: blue;
+}

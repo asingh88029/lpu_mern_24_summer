@@ -1,0 +1,33 @@
+#hero_container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#hero_container > img {
+    width: 100vw;
+    height: 40vh;
+    object-fit: cover;
+}
+
+#hero_container > div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#hero_container > div > div {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#input_tag{
+    width: 60vw;
+    height: 40px;
+    padding: 10px 20px;
+}

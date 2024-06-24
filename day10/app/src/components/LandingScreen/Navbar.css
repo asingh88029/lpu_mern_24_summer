@@ -1,0 +1,12 @@
+#navbar-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    font-size: 30px;
+    background-color: beige;
+}
+
+#navbar-container > :nth-child(2){
+    display: flex;
+    gap: 10px;
+}

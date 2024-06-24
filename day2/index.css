@@ -1,0 +1,64 @@
+* {
+    margin: 0px;
+}
+
+
+#hero_container {
+    position: relative;
+}
+
+#hero_container > img {
+    width: 100vw;
+    height: 40vh;
+    object-fit: cover;
+}
+
+#hero_container > div {
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    bottom: 40px;
+}
+
+#input_tag{
+    width: 60vw;
+    height: 40px;
+    padding: 10px 20px;
+}
+
+.city_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap : 10px;
+    justify-content: center;
+}
+
+.city_card {
+    position: relative;
+}
+
+.city_card :hover {
+    scale: 0.8;
+}
+
+.city_info {
+    position: absolute;
+    left: 0px;
+    bottom: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.city_img {
+    width: 280px;
+    height: 400px;
+    border-radius: 8px;
+}
+
+.city_name {
+    color: white;
+}
+
+.city_no_of_places{
+    color: white;
+}

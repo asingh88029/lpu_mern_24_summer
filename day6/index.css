@@ -1,0 +1,13 @@
+.card {
+    width:200px;
+    height:250px;
+    background-color: yellow; 
+    border: 2px solid red;
+}
+
+#tasks {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: nowrap;
+    gap : 10px
+}
