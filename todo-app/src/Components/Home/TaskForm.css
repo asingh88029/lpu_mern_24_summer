@@ -1,0 +1,16 @@
+#taskform-container{
+    width: 40vw;
+    height: 30vh;
+    background-color: bisque;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+#taskform-container-parent{
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
