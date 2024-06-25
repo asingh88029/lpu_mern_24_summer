@@ -7,12 +7,11 @@ const TaskCard = (props) => {
   const { data : {task, priority, id, status}} = props  
     
   return (
-    <div id='task-card-container' className={status==="pending" ? "pending" : "completed"}>
-        <h6>Task : {task}</h6>
-        <h6>Priority : {priority}</h6>
-        <div>
-         {/* <Button onClick={()=>{}} type="primary">Complete</Button> */}
-        </div>
+    <div className={status==="pending" ? "pending" : "completed"}>
+      <p>Task : {task}</p>
+      <p>Priority : {priority}</p>
+      <button>Complete</button>
+      <button>Remove</button>
     </div>
   )
 }

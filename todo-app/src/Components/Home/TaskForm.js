@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import "./TaskForm.css"
 import {Button, Input, Select} from "antd"
 
-const TaskForm = () => {
+const TaskForm = ({setTaskData}) => {
 
     const [task, setTask] = useState("")
 
@@ -20,14 +20,18 @@ const TaskForm = () => {
 
     function addTaskHandler(){
         
-        const data = {
+        const taskInfo = {
             task : task,
             priority : priority,
             status : "pending",
             id : generateUniqueId()
         }
 
-        console.log(data)
+        setTaskData((prevValue)=>{
+            const data = [...prevValue]
+            data.push(taskInfo)
+            return data
+        })
         
     }
 

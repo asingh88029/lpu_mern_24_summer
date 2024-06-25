@@ -1,0 +1,14 @@
+#cart-container{
+    background-color: bisque;
+    width: 20vw;
+    height: 20vh;
+}
+
+#cart-container :nth-child(1){
+    display: flex;
+    justify-content: space-between;
+}
+
+#cart-container :nth-child(2){
+    display: flex;
+}

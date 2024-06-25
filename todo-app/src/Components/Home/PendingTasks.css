@@ -8,8 +8,3 @@
 #pending-tasks-container :nth-child(1){
     width: 80vw;
 }
-
-#task-card-parent {
-    /* display: flex; */
-    /* flex-wrap: nowrap; */
-}

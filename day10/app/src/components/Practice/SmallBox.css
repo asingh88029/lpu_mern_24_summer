@@ -1,0 +1,12 @@
+#small-box-container{
+    padding: 20px;
+    border: 2px solid green;
+}
+
+.odd {
+    background-color: yellow;
+}
+
+.even {
+    background-color: red;
+}
