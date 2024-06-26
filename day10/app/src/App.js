@@ -1,14 +1,20 @@
 import './App.css'
-import Cart from './components/Practice/Cart';
+import {BrowserRouter, Routes, Route} from "react-router-dom"
+import LandingScreen from "./screens/LandingScreen"
+import Adventure from "./screens/Adventure"
+import Details from "./screens/Details"
+import Reservation from "./screens/Reservation"
 
 function App() {
   return (
-    <div style={{display: 'flex', gap:10}}>
-      <Cart name="I Phone 14 Cover" price="499"/>
-      <Cart name="Toothpaste" price="99"/>
-      <Cart name="Bag Pack" price="999"/>
-      <Cart name="I Phone 14" price="99499"/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<LandingScreen/>}/>
+        <Route path='/adventure' element={<Adventure/>}/>
+        <Route path='/details' element={<Details/>}/>
+        <Route path='/reservation' element={<Reservation/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 export default App;
