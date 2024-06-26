@@ -1,0 +1,10 @@
+#pending-tasks-container{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-top: 40px;
+}
+
+#pending-tasks-container :nth-child(1){
+    width: 80vw;
+}

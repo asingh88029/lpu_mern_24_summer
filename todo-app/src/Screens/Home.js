@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import "./Home.css"
 import TaskForm from '../Components/Home/TaskForm'
 import PendingTasks from '../Components/Home/PendingTasks'
-import { reportTypeError } from 'ajv/dist/compile/validate/dataType'
+import CompletedTasks from '../Components/Home/CompletedTasks'
 
 const Home = () => {
 
@@ -11,7 +11,8 @@ const Home = () => {
   return (
     <div>
         <TaskForm setTaskData={setTaskData}/>
-        <PendingTasks taskData={taskData}/>
+        <PendingTasks setTaskData={setTaskData} taskData={taskData}/>
+        <CompletedTasks setTaskData={setTaskData} taskData={taskData}/>
     </div>
   )
 }
