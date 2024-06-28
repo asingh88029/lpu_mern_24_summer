@@ -37,7 +37,7 @@ const CityContainer = ({searchCity}) => {
     <div>
       <div id='city-container'>
         {filteredCityData.length==0 && <h2>No City Found</h2>}
-        {filteredCityData.map((info, index)=><CityCard key={index} city={info.city} description={info.description} image={info.image}/>)}
+        {filteredCityData.map((info, index)=><CityCard key={index} city={info.city} description={info.description} image={info.image} id={info.id}/>)}
       </div>
     </div>
   )
