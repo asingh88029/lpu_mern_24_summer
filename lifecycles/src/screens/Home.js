@@ -1,12 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import CityContainer from '../components/Home/CityContainer'
 import HeroSection from '../components/Home/HeroSection'
 
 const Home = () => {
+  
+  const [searchCity, setSearchCity] = useState("")
+
   return (
     <div>
-        <HeroSection/>
-        <CityContainer/>
+        <HeroSection setSearchCity={setSearchCity}/>
+        <CityContainer searchCity={searchCity} />
     </div>
   )
 }
