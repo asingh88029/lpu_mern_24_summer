@@ -8,13 +8,22 @@ const Adventure = () => {
 
   const {id} = useParams()
 
+  // Original API Data
   const [adventureData, setAdventureData] = useState([])
+
+  const [filteredAdventureData, setFilteredAdventureData] = useState([])
 
   const [categories, setCategories] = useState([])
 
   const [durations, setDurations] = useState([])
 
   const [budgets, setBudgets] = useState([])
+
+  const [categorySelected, setCategorySelected] = useState([])
+
+  const [durationSelected, setDurationSelected] = useState([])
+
+  const [budgetSelected, setBudgetSelected] = useState([])
 
   const getUniqueCategories = (arr) => {
     const categories = arr.map(item => item.category);
@@ -56,12 +65,47 @@ const Adventure = () => {
       return a > b ? 1 : -1
     })
   };
+
+
+  useEffect(()=>{
+
+    const result = adventureData.filter((item)=>{
+      if(categorySelected.length==0){
+        return true
+      }
+      return categorySelected.includes(item.category)
+    }).filter((item)=>{
+      if(budgetSelected.length==0){
+        return true
+      }
+      const price = item.costPerHead
+      const rem = price % 2000 
+      const lowerRange = price - rem 
+      const higherRange = lowerRange + 2000
+      const range = `${lowerRange}-${higherRange}`
+      return budgetSelected.includes(range)
+    }).filter((item)=>{
+      if(durationSelected.length==0){
+        return true
+      }
+      const duration = item.duration
+      const rem = duration % 5 
+      const lowerRange = duration - rem 
+      const higherRange = lowerRange + 5
+      const range = `${lowerRange}-${higherRange}`
+      return durationSelected.includes(range)
+    })
+
+    setFilteredAdventureData(result)
+
+  },[categorySelected, budgetSelected, durationSelected])
   
 
   useEffect(()=>{
     const API_ENDPOINT = `https://makemytrip-backend-w2d2.onrender.com/adventures?city=${id}`
     fetch(API_ENDPOINT).then(res=>res.json()).then((data)=>{
       setAdventureData(data)
+      setFilteredAdventureData(data)
       // to update the categories
       const uniquCategories = getUniqueCategories(data)
       setCategories(uniquCategories)
@@ -87,7 +131,9 @@ const Adventure = () => {
             style={{ width: '20%' }}
             placeholder="Select Category"
             defaultValue={[]}
-            onChange={()=>{}}
+            onChange={(value)=>{
+              setCategorySelected(value)
+            }}
             options={categories.map((item)=>{ 
               return {"label" : item, "value" : item}
             })}
@@ -98,7 +144,9 @@ const Adventure = () => {
             style={{ width: '20%' }}
             placeholder="Select Budget"
             defaultValue={[]}
-            onChange={()=>{}}
+            onChange={(value)=>{
+              setBudgetSelected(value)
+            }}
             options={budgets.map((item)=>{ 
               return {"label" : item + " INR", "value" : item}
             })}
@@ -109,7 +157,9 @@ const Adventure = () => {
             style={{ width: '20%' }}
             placeholder="Select Duration"
             defaultValue={[]}
-            onChange={()=>{}}
+            onChange={(value)=>{
+              setDurationSelected(value)
+            }}
             options={durations.map((item)=>{ 
               return {"label" : item + " Hrs", "value" : item}
             })}
@@ -117,7 +167,8 @@ const Adventure = () => {
         </div>
       </div>
       <div id='adventure-card-container'>
-        {adventureData.map((info)=>{
+        {filteredAdventureData.length==0 && <h2>No Result Found!</h2>}
+        {filteredAdventureData.map((info)=>{
           const {id, name, costPerHead, currency, image, duration, category} = info;
           return <AdventureCard id={id} name={name} costPerHead={costPerHead} currency={currency} image={image} duration={duration} category={category} />
         })}
