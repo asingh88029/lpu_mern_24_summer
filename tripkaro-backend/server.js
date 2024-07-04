@@ -8,6 +8,8 @@ const PORT = process.env.PORT
 
 const server = express()
 
+server.use(express.json())
+
 server.use("/api/v1/cities", CitiesRouter)
 
 server.listen(PORT, ()=>{

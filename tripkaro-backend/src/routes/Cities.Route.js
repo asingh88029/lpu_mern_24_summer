@@ -1,12 +1,8 @@
 const express = require("express");
+const {CreateNewCity} = require("./../controller/Cities.controller")
 
 const CitiesRouter = express.Router();
 
-CitiesRouter.post("/add", (request, response)=>{
-    console.log("hello")
-    response.status(200).json({
-        message : "hello"
-    })
-})
+CitiesRouter.post("/add", CreateNewCity)
 
 module.exports = CitiesRouter;
