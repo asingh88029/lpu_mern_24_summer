@@ -1,4 +1,4 @@
-const {SaveNewDataInCities} = require("./../service/Cities.service")
+const {SaveNewDataInCities, GetAllCity : GetAllCityService} = require("./../service/Cities.service")
 
 async function CreateNewCity(req, res){
 
@@ -25,6 +25,29 @@ async function CreateNewCity(req, res){
 
 }
 
+async function GetAllCity(req, res){
+
+    try{
+
+        const result = await GetAllCityService()
+
+        if(result.success){
+            res.status(200).json({
+                success : true,
+                data : result.data
+            })
+        }else{
+            throw new Error("Error in GetAllCity Controller")
+        }
+
+    }catch(err){
+        res.status(500).json({
+            success : false
+        })
+    }
+}
+
 module.exports = {
-    CreateNewCity
+    CreateNewCity,
+    GetAllCity
 }
