@@ -51,7 +51,30 @@ async function GetAllCity(){
     }
 }
 
+async function DeleteCityById(_id){
+    try{
+
+       const result = await Cities.findByIdAndDelete(_id)
+
+       if(result){
+            return {
+                success : true,
+                data : result
+            }
+       }else{
+            throw new Error("Error in DeleteCityById Service")
+       }
+
+    }catch(err){
+        console.log(err)
+        return {
+            success : false
+        } 
+    }
+}
+
 module.exports = {
     SaveNewDataInCities,
-    GetAllCity
+    GetAllCity,
+    DeleteCityById
 }

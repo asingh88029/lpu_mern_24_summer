@@ -1,4 +1,4 @@
-const {SaveNewDataInCities, GetAllCity : GetAllCityService} = require("./../service/Cities.service")
+const {SaveNewDataInCities, GetAllCity : GetAllCityService, DeleteCityById : DeleteCityByIdService} = require("./../service/Cities.service")
 
 async function CreateNewCity(req, res){
 
@@ -47,7 +47,31 @@ async function GetAllCity(req, res){
     }
 }
 
+async function DeleteCityByIdController(req, res){
+    try{
+
+        const {id} = req.query;
+
+        const result = await DeleteCityByIdService(id)
+
+        if(result.success){
+            res.status(200).json({
+                success : true,
+                data : result.data
+            })
+        }else{
+            throw new Error("Error in DeleteCityByIdController Controller")
+        }
+
+    }catch(err){
+        res.status(500).json({
+            success : false
+        })
+    }
+}
+
 module.exports = {
     CreateNewCity,
-    GetAllCity
+    GetAllCity,
+    DeleteCityByIdController
 }
