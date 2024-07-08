@@ -1,4 +1,5 @@
 const Adventures = require("./../model/Adventures.model")
+const Cities = require("./../model/Cities.model")
 
 async function SaveDataInAdventures(cityId, name, costPerHead, duration, image, currency, category){
 
@@ -32,6 +33,41 @@ async function SaveDataInAdventures(cityId, name, costPerHead, duration, image, 
 
 }
 
+async function GetAdventuresByCityService(cityName){
+    try{
+
+        // cityName : punjab
+        // fetch the _id of city using the cityName
+        const cityResult = await Cities.findOne({id : cityName})
+
+        if(!cityResult){
+            throw new Error(`${cityName} is not available in the cities`)
+        }
+
+        const {_id : cityId} = cityResult
+
+        // fetch all the adventures
+
+        const adventureResult = await Adventures.find({cityId : cityId})
+
+        if(adventureResult){
+            return {
+                success : true,
+                data : adventureResult
+            }
+        }else{
+            throw new Error("Unable to fetch the adventure using cityId :" + cityId)
+        }
+
+    }catch(err){
+        console.log(err)
+        return {
+            success : false
+        }
+    }
+}
+
 module.exports = {
-    SaveDataInAdventures
+    SaveDataInAdventures,
+    GetAdventuresByCityService
 }
