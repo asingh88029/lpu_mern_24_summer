@@ -1,6 +1,6 @@
 const httpStatus = require("http-status");
 
-const {SaveDataInAdventures, GetAdventuresByCityService} = require("./../service/Adventures.service")
+const {SaveDataInAdventures, GetAdventuresByCityService, DeleteAdventureByIdService} = require("./../service/Adventures.service")
 
 async function AddNewAdventureController(req, res){
     try{
@@ -52,7 +52,31 @@ async function GetAllAdventureByCityName(req, res){
     }
 }
 
+async function DeleteAdventureByIdController(req, res){
+    try{
+
+        const {id} = req.query;
+
+        const result = await DeleteAdventureByIdService(id)
+
+        if(result.success){
+            res.status(httpStatus.OK).json({
+                status : true
+            })
+        }else{
+            throw new Error("Error in DeleteAdventureByIdController")
+        }
+
+    }catch(err){
+        console.log(err)
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+            success : false
+        }) 
+    }
+}
+
 module.exports = {
     AddNewAdventureController,
-    GetAllAdventureByCityName
+    GetAllAdventureByCityName,
+    DeleteAdventureByIdController
 }

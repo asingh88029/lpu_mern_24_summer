@@ -67,7 +67,29 @@ async function GetAdventuresByCityService(cityName){
     }
 }
 
+async function DeleteAdventureByIdService(id){
+    try{
+
+        const result = await Adventures.findByIdAndDelete(id)
+
+        if(result){
+            return {
+                success : true
+            }
+        }else{
+            throw new Error("Error in DeleteAdventureByIdService")
+        }
+
+    }catch(err){
+        console.log(err)
+        return {
+            success : false
+        }
+    }
+}
+
 module.exports = {
     SaveDataInAdventures,
-    GetAdventuresByCityService
+    GetAdventuresByCityService,
+    DeleteAdventureByIdService
 }
