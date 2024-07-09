@@ -1,6 +1,6 @@
 const httpStatus = require("http-status")
 
-const { SaveNewAdventureDetailService } = require("./../service/AdventureDetail.service")
+const { SaveNewAdventureDetailService, GetAdventureDetailByAdventureIdService } = require("./../service/AdventureDetail.service")
 
 async function SaveNewAdventureDetail(req, res){
 
@@ -48,6 +48,52 @@ async function SaveNewAdventureDetail(req, res){
 
 }
 
+async function GetAdventureDetailsUsingAdventureIdController(req, res){
+    try{
+
+        const { id : adventureId } = req.query;
+
+        const result = await GetAdventureDetailByAdventureIdService(adventureId)
+
+        if(result.success){
+
+            const {adventureId : {name, costPerHead}, subtitle, images, content, available, reserved, slots} = result.data
+
+            const DATA_TO_SEND = {
+                id : adventureId,
+                name,
+                costPerHead,
+                subtitle,
+                images,
+                content,
+                available,
+                reserved,
+                slots : slots.map(slot=>{
+                    return {
+                        date : slot.date,
+                        numberOfPerson : slot.numberOfPerson
+                    }
+                })
+            }
+
+            res.status(httpStatus.OK).json({
+                success : true,
+                data : DATA_TO_SEND
+            })
+
+        }else{
+            throw new Error("Error in GetAdventureDetailsUsingAdventureIdController")
+        }
+
+    }catch(err){
+        console.log(err)
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+            success : false
+        })
+    }
+}
+
 module.exports = {
-    SaveNewAdventureDetail
+    SaveNewAdventureDetail,
+    GetAdventureDetailsUsingAdventureIdController
 }

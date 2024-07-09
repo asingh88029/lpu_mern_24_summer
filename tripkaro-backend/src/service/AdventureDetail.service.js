@@ -30,6 +30,29 @@ async function SaveNewAdventureDetailService(adventureId, subtitle, images, cont
 
 }
 
+async function GetAdventureDetailByAdventureIdService(adventureId){
+    try{
+
+        const result = await AdventureDetail.findOne({adventureId : adventureId}).populate('adventureId', 'name costPerHead')
+
+        if(result){
+            return {
+                success : true,
+                data : result
+            }
+        }else{
+            throw new Error("Error in GetAdventureDetailByAdventureIdService")
+        }
+
+    }catch(err){
+        console.log(err)
+        return {
+            success : false
+        }
+    }
+}
+
 module.exports = {
-    SaveNewAdventureDetailService
+    SaveNewAdventureDetailService,
+    GetAdventureDetailByAdventureIdService
 }

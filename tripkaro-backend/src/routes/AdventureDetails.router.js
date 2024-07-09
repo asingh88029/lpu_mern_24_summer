@@ -1,9 +1,11 @@
 const express = require("express");
 
-const { SaveNewAdventureDetail } = require("./../controller/AdventureDetails.controller")
+const { SaveNewAdventureDetail, GetAdventureDetailsUsingAdventureIdController } = require("./../controller/AdventureDetails.controller")
 
 const AdventureDetailRouter = express.Router()
 
 AdventureDetailRouter.post('/add', SaveNewAdventureDetail)
+
+AdventureDetailRouter.get("/", GetAdventureDetailsUsingAdventureIdController)
 
 module.exports = AdventureDetailRouter;
