@@ -10,7 +10,23 @@ async function SaveNewAdventureDetail(req, res){
 
         const { subtitle, images, content, slots} = req.body
 
-        const result = await SaveNewAdventureDetailService(adventureId, subtitle, images, content, slots)
+        const modifiedDateSlots = slots.map((slot)=>{
+            if(slot.date){
+                
+                // Split the input date string into day, month, and year
+                const [day, month, year] = slot.date.split('-').map(Number);
+
+                // Create a new Date object with the specified date
+                const date = new Date(Date.UTC(year, month - 1, day));
+
+                const newSlot = {...slot, date : date}
+
+                return newSlot
+
+            }
+        })
+
+        const result = await SaveNewAdventureDetailService(adventureId, subtitle, images, content, modifiedDateSlots)
 
         if(result.success){
 
