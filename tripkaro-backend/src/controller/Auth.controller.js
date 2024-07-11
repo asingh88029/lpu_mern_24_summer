@@ -1,5 +1,7 @@
 const httpStatus = require("http-status")
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+require("dotenv").config()
 
 const {RegisterUserService, GetUserByEmailId} = require("./../service/User.service")
 
@@ -62,9 +64,38 @@ async function LoginUserController(req, res){
 
         const userResult = await GetUserByEmailId(email)
 
-        console.log(userResult)
+        if(!userResult.success){
+            res.status(httpStatus.BAD_REQUEST).json({
+                success : false
+            })
+        }
 
         // user having the same password that we are receiving
+        const {password : encryptedPassword, _id : id} = userResult.data
+
+        const compareResult = await bcrypt.compare(password, encryptedPassword)
+
+        if(!compareResult){
+           res.status(httpStatus.BAD_REQUEST).json({
+                success : false
+           }) 
+           return
+        }
+
+        // everything is ok. Email & Password is correct
+        const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY
+
+        const PAYLOAD = {
+            id : id,
+            email : email
+        }
+
+        const TOKEN = await jwt.sign(PAYLOAD, JWT_SECRET_KEY, { expiresIn : '1h' })
+
+        res.status(httpStatus.OK).json({
+            success : true,
+            token : TOKEN
+        })
 
     }catch(err){
         console.log(err)
