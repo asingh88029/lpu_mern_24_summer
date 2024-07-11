@@ -26,6 +26,27 @@ async function RegisterUserService(name, email, encryptedPassword){
     }
 }
 
+async function GetUserByEmailId(email){
+    try{
+        const result = await User.findOne({email : email})
+
+        if(result){
+            return {
+                success : true,
+                data : result
+            }
+        }else{
+            throw new Error("Error in GetUserByEmailId")
+        }
+    }catch(err){
+        console.log(err)
+        return {
+            success : false
+        }
+    }
+}
+
 module.exports = {
-    RegisterUserService
+    RegisterUserService,
+    GetUserByEmailId
 }

@@ -1,7 +1,7 @@
 const httpStatus = require("http-status")
 const bcrypt = require('bcrypt')
 
-const {RegisterUserService} = require("./../service/Auth.service")
+const {RegisterUserService, GetUserByEmailId} = require("./../service/User.service")
 
 async function RegisterUserController(req, res){
     try{
@@ -45,6 +45,37 @@ async function RegisterUserController(req, res){
     }
 }
 
+async function LoginUserController(req, res){
+    try{
+
+        const {email, password} = req.body;
+
+        if(!email){
+            throw new Error("Email is required")
+        }
+
+        if(!password){
+            throw new Error("Passowrd is required")
+        }
+
+        // we have to create check first user is present with this email or not
+
+        const userResult = await GetUserByEmailId(email)
+
+        console.log(userResult)
+
+        // user having the same password that we are receiving
+
+    }catch(err){
+        console.log(err)
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+            success : false,
+            message : err.message
+        })
+    }
+}
+
 module.exports = {
-    RegisterUserController
+    RegisterUserController,
+    LoginUserController
 }
