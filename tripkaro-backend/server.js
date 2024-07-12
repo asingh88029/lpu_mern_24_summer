@@ -22,7 +22,7 @@ server.use('/api/v1/details', AdventureDetailRouter)
 
 server.use('/api/v1/auth', AuthRouter)
 
-server.use('/api/v1/reservation'. ReservationRouter)
+server.use('/api/v1/reservations', ReservationRouter)
 
 server.listen(PORT, ()=>{
     console.log("Express.js server is started on PORT : ", PORT)
