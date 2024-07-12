@@ -1,6 +1,6 @@
 const httpStatus = require("http-status")
 
-const {createNewReservationService} = require("./../service/Reservation.service")
+const {createNewReservationService, GetReservationsByUserIdService} = require("./../service/Reservation.service")
 
 async function CreateNewAdventureBooking(req, res){
     try{
@@ -35,6 +35,40 @@ async function CreateNewAdventureBooking(req, res){
     }
 }
 
+async function GetAllAdventuresBooking(req, res){
+    try{
+
+        const userId = req.id;
+
+        const result = await GetReservationsByUserIdService(userId)
+
+        if(!result.success){
+            throw new Error("Error in GetAllAdventuresBooking Controller")
+        }
+
+        res.status(httpStatus.OK).json({
+            success : true,
+            data : result.data.map((reservation)=>{
+                const {adventure, numberOfPerson, date, bookingCreatedAt, _id : id} = reservation
+                return {
+                    id,
+                    adventureId : adventure,
+                    numberOfPerson,
+                    date,
+                    bookingCreatedAt
+                }
+            })
+        })
+
+    }catch(err){
+        console.log(err)
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+            success : false
+        })
+    }
+}
+
 module.exports = {
-    CreateNewAdventureBooking
+    CreateNewAdventureBooking,
+    GetAllAdventuresBooking
 }

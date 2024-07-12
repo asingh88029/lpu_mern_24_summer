@@ -64,6 +64,29 @@ async function createNewReservationService(userId, adventureId, date, numberOfPe
     }
 }
 
+async function GetReservationsByUserIdService(userId){
+    try{
+
+        const result = await Reservation.find({user : userId})
+
+        if(result){
+            return {
+                success : true,
+                data : result
+            }
+        }else{
+            throw new Error("Error in GetReservationsByUserIdService")
+        }
+
+    }catch(err){
+        console.log(err)
+        return {
+            success : false
+        }
+    }
+}
+
 module.exports = {
-    createNewReservationService
+    createNewReservationService,
+    GetReservationsByUserIdService
 }
