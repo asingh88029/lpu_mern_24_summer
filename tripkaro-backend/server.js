@@ -1,6 +1,7 @@
 const express = require("express")
 require("dotenv").config()
 require("./src/db/connect");
+const cors = require('cors')
 
 const CitiesRouter = require("./src/routes/Cities.Route");
 const AdventureRouter = require("./src/routes/Adventures.Route");
@@ -11,6 +12,8 @@ const ReservationRouter = require("./src/routes/Reservation.route")
 const PORT = process.env.PORT
 
 const server = express()
+
+server.use(cors())
 
 server.use(express.json())
 
